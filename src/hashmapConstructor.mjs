@@ -113,6 +113,8 @@ class HashMap {
         this.numberOfElements = 0;
         this.buckets = new Array(16);
     }
+
+    
 }
 
 const test = new HashMap;
@@ -121,8 +123,9 @@ test.set('joe', 'osteen')
 test.set('joel', 'osteen')
 test.set('blue', 'bella')
 test.set('alister', 'smallus')
-console.log(test.remove('alister'));
+console.log(test.get('alister'));
 console.log(test.length());
+
 
 
 export { HashMap };
