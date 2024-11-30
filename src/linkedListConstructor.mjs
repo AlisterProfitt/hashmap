@@ -153,6 +153,19 @@ class LinkedList {
 		return valuesContainer;
 	}
 
+	toEntries() {
+		if (this.length === 0) return 'null';
+		let currentNode = this.headNode;
+		let entriesContainer = [];
+		while (currentNode.nextNode) {
+			entriesContainer.push(currentNode.value);
+			currentNode = currentNode.nextNode;
+		}
+		entriesContainer.push(this.tailNode.value)
+
+		return entriesContainer;
+	}
+
 	insertAt(value, index) {
         if (index < 0 || index > this.length) {
             console.log('Not a valid operation');
@@ -216,6 +229,6 @@ const list = new LinkedList();
 list.append(['cheese', 'grater']);
 list.append(['sauce', 'pan']);
 list.append(['pudding', 'apple'])
-console.log(list.toValues());
+console.log(list.toEntries());
 
 export { LinkedList }

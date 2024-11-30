@@ -119,25 +119,36 @@ class HashMap {
         for (let i = 0; i < this.capacity; i++) {
             if (this.buckets[i] !== undefined) {
                 const keysArray = this.buckets[i].toKeys();
-                console.log(keysArray);
                 keysContainer.push(keysArray);
             }
         }
         
         return keysContainer.flat(1);
     }
+
+    values() {
+        const valuesContainer = [];
+        for (let i = 0; i < this.capacity; i++) {
+            if (this.buckets[i] !== undefined) {
+                const valuesArray = this.buckets[i].toValues();
+                valuesContainer.push(valuesArray);
+            }
+        }
+        
+        return valuesContainer.flat(1);
+    }
+
+    entries() {
+        const entriesContainer = [];
+        for (let i = 0; i < this.capacity; i++) {
+            if (this.buckets[i] !== undefined) {
+                const entriesArray = this.buckets[i].toEntries();
+                entriesContainer.push(entriesArray);
+            }
+        }
+        
+        return entriesContainer.flat(1);
+    }
 }
-
-const test = new HashMap;
-test.set('alister', 'biggus');
-test.set('joe', 'osteen')
-test.set('joel', 'osteen')
-test.set('blue', 'bella')
-test.set('alister', 'smallus')
-console.log(test.get('alister'));
-console.log(test.length());
-console.log(test.keys());
-
-
 
 export { HashMap };
