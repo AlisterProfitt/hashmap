@@ -114,7 +114,18 @@ class HashMap {
         this.buckets = new Array(16);
     }
 
-    
+    keys() {
+        const keysContainer = [];
+        for (let i = 0; i < this.capacity; i++) {
+            if (this.buckets[i] !== undefined) {
+                const keysArray = this.buckets[i].toKeys();
+                console.log(keysArray);
+                keysContainer.push(keysArray);
+            }
+        }
+        
+        return keysContainer.flat(1);
+    }
 }
 
 const test = new HashMap;
@@ -125,6 +136,7 @@ test.set('blue', 'bella')
 test.set('alister', 'smallus')
 console.log(test.get('alister'));
 console.log(test.length());
+console.log(test.keys());
 
 
 

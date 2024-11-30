@@ -199,10 +199,10 @@ class LinkedList {
     }
 }
 
-const list = new LinkedList();
-list.append(['cheese', 'grater']);
-list.append(['sauce', 'pan']);
-list.append(['pudding', 'apple'])
-console.log(list.toKeys());
+// const list = new LinkedList();
+// list.append(['cheese', 'grater']);
+// list.append(['sauce', 'pan']);
+// list.append(['pudding', 'apple'])
+// console.log(list.toKeys());
 
 export { LinkedList }
