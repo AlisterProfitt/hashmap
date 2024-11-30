@@ -1,5 +1,5 @@
 class HashMap {
-    constructor(capacity = 16, loadFactor = 0.8) {
+    constructor(capacity = 16, loadFactor = 0) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
     }
@@ -15,7 +15,9 @@ class HashMap {
         return hashCode;
     }
 
+    set(key, value) {
 
+    }
 }
 
 const test = new HashMap;
