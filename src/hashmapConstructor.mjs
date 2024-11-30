@@ -87,7 +87,22 @@ class HashMap {
         return boolean;
     }
 
+    remove(key) {
+        const bucketIndex = this.hash(key);
+        let boolean = false;
+        if (bucketIndex < 0 || bucketIndex >= this.buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
 
+        if (this.has(key)) {
+            const keyIndex = this.buckets[bucketIndex].find(key);
+            this.buckets[bucketIndex].removeAt(keyIndex);
+            this.numberOfElements--;
+            boolean = true;
+        }
+
+        return boolean;
+    }
 
     length() {
         return this.numberOfElements;
@@ -106,8 +121,8 @@ test.set('joe', 'osteen')
 test.set('joel', 'osteen')
 test.set('blue', 'bella')
 test.set('alister', 'smallus')
-console.log(test.loadFactor);
-console.log(test.has('joelj'))
+console.log(test.remove('alister'));
 console.log(test.length());
+
 
 export { HashMap };
