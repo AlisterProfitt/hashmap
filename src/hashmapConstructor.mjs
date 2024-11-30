@@ -81,14 +81,29 @@ class HashMap {
         }
         return boolean;
     }
+
+
+
+    length() {
+        return this.numberOfElements;
+    }
+
+    clear() {
+        this.capacity = 16;
+        this.loadFactor = 0;
+        this.numberOfElements = 0;
+        this.buckets = new Array(16);
+    }
 }
 
 const test = new HashMap;
 test.set('alister', 'biggus');
 test.set('joe', 'osteen')
 test.set('joel', 'osteen')
+test.set('blue', 'bella')
 test.set('alister', 'smallus')
 console.log(test.loadFactor);
 console.log(test.has('joelj'))
+console.log(test.length());
 
 export { HashMap };
