@@ -1,15 +1,19 @@
 import { LinkedList } from "./linkedListConstructor.mjs";
 
 class HashMap {
-    constructor(capacity = 16, loadFactor = 0) {
+    constructor(capacity = 16, loadFactor = 0.75) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
         this.numberOfElements = 0;
         this.buckets = new Array(capacity);
     }
 
-    updateLoadfactor() {
-        this.loadFactor = this.numberOfElements / this.capacity;
+    checkLoad() {
+        if ((this.numberOfElements / this.capacity) >= this.loadFactor) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     hash(key) {
@@ -36,7 +40,7 @@ class HashMap {
             list.append(newEntry);
             this.buckets[bucketIndex] = list;
             this.numberOfElements++;
-            this.updateLoadfactor();
+            this.checkLoad();
             return newEntry;
         }
 
@@ -47,7 +51,8 @@ class HashMap {
         } else {
             potentialList.append(newEntry);
             this.numberOfElements++;
-            this.updateLoadfactor();
+            // check if load > loadFactor. If it is, double buckets, presumably with the concat method
+            this.checkLoad();
         }
         return newEntry
     }
@@ -90,7 +95,6 @@ class HashMap {
 
     clear() {
         this.capacity = 16;
-        this.loadFactor = 0;
         this.numberOfElements = 0;
         this.buckets = new Array(16);
     }
