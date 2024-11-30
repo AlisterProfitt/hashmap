@@ -4,7 +4,12 @@ class HashMap {
     constructor(capacity = 16, loadFactor = 0) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
+        this.numberOfElements = 0;
         this.buckets = new Array(capacity);
+    }
+
+    updateLoadfactor() {
+        this.loadFactor = this.numberOfElements / this.capacity;
     }
 
     hash(key) {
@@ -30,6 +35,8 @@ class HashMap {
             const list = new LinkedList();
             list.append(newEntry);
             this.buckets[bucketIndex] = list;
+            this.numberOfElements++;
+            this.updateLoadfactor();
             return newEntry;
         }
 
@@ -39,6 +46,8 @@ class HashMap {
             potentialList.insertAt(newEntry, listIndex);
         } else {
             potentialList.append(newEntry);
+            this.numberOfElements++;
+            this.updateLoadfactor();
         }
         return newEntry
     }
