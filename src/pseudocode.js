@@ -23,3 +23,7 @@
 
     // if contains returns false, list.append(newEntry). Else, overwrite
 // }
+function get(key) {
+    const bucketIndex = hash(key);
+    
+}

@@ -51,6 +51,20 @@ class HashMap {
         }
         return newEntry
     }
+
+    get(key) {
+        const bucketIndex = this.hash(key);
+        if (bucketIndex < 0 || bucketIndex >= this.buckets.length) {
+            throw new Error("Trying to access index out of bounds");
+        }
+
+        if (this.buckets[bucketIndex] !== undefined) {    
+            const valueIndex = this.buckets[bucketIndex].find(key);
+            if (valueIndex < 0) return null;
+            return this.buckets[bucketIndex].at(valueIndex).value[1];
+        }
+        return null;
+    }
 }
 
 const test = new HashMap;
@@ -58,6 +72,7 @@ test.set('alister', 'biggus');
 test.set('joe', 'osteen')
 test.set('joel', 'osteen')
 test.set('alister', 'smallus')
-console.log(test.buckets[12]);
+console.log(test.loadFactor);
+console.log(test.get('jalid'));
 
 export { HashMap };
