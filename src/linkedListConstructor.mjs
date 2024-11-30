@@ -6,8 +6,8 @@ class Node {
 }
 
 class LinkedList {
-	constructor(value) {
-		this.headNode = new Node(value);
+	constructor() {
+		this.headNode = new Node();
 		this.tailNode = this.headNode;
 		this.length = 0;
 	}
