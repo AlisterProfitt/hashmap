@@ -126,6 +126,64 @@ class LinkedList {
 
 		return stringContainer;
 	}
+
+	insertAt(value, index) {
+        if (index < 0 || index > this.length) {
+            console.log('Not a valid operation');
+            return;
+        }
+
+        let currentNode = this.headNode;
+        let previousNode = this.headNode;
+        let newNode = new Node(value);
+        for (let i = 0; i <= index; i++) {
+            if (i === index) {
+                if (index !== 0) {
+                    previousNode.nextNode = newNode;
+                    newNode.nextNode = currentNode;
+                } else {
+                    this.headNode = newNode;
+                    if (currentNode.value !== null) {
+                        newNode.nextNode = currentNode;
+                    }
+                }
+            } else {
+                previousNode = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+        }
+        this.length++
+    }
+
+    removeAt(index) {
+        if (index < 0 || index > this.length) {
+            console.log('Not a valid operation');
+            return;
+        }
+
+        let currentNode = this.headNode;
+        let previousNode = this.headNode;
+        for (let i = 0; i <= index; i++) {
+            if (i === index) {
+                if (index !== 0) {
+                    previousNode.nextNode = currentNode.nextNode;
+                } else {
+                    if (currentNode.nextNode === null) {
+                        this.headNode = new Node(null)
+                    } else {
+                        this.headNode = this.headNode.nextNode;
+                    }
+                }
+            } else {
+                previousNode = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+        }
+        
+        if (this.length !== 0) {
+            this.length--;
+        }
+    }
 }
 
 export { LinkedList }
