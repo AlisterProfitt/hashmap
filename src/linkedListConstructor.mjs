@@ -98,11 +98,11 @@ class LinkedList {
 		return boolean;
 	}
 
-	find(value) {
+	find(key) {
 		let currentNode = this.headNode;
 		let container = -1;
 		for (let i = 0; i < this.length; i++) {
-			if (currentNode.value === value) {
+			if (currentNode.value[0] === key) {
 				container = i;
 				break;
 			}

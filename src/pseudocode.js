@@ -7,9 +7,12 @@ function set(key, value) {
         const list = new LinkedList();
         list.append(newEntry);
         bucket[bucketIndex] = list;
+        return newEntry;
     }
+
+    const listIndex = buckets[bucketIndex].find()
 
     // if bucket already has item, check if it has our key with list.contains()
 
-    // if contains returns false, list.append(newEntry). Else, 
+    // if contains returns false, list.append(newEntry). Else, overwrite
 }
