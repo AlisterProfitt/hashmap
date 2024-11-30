@@ -1,7 +1,10 @@
+import { LinkedList } from "./linkedListConstructor.mjs";
+
 class HashMap {
     constructor(capacity = 16, loadFactor = 0) {
         this.capacity = capacity;
         this.loadFactor = loadFactor;
+        this.buckets = new Array(capacity);
     }
 
     hash(key) {
@@ -21,6 +24,6 @@ class HashMap {
 }
 
 const test = new HashMap;
-console.log(test.hash('alister'));
+console.log(test.buckets[3]);
 
 export { HashMap };
