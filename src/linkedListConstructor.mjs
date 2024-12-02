@@ -181,10 +181,10 @@ class LinkedList {
                     previousNode.nextNode = newNode;
                     newNode.nextNode = currentNode;
                 } else {
-                    this.headNode = newNode;
-                    if (currentNode.value !== null) {
-                        newNode.nextNode = currentNode;
+					if (currentNode.value !== null) {
+						newNode.nextNode = currentNode;
                     }
+					this.headNode = newNode;
                 }
             } else {
                 previousNode = currentNode;
@@ -200,6 +200,18 @@ class LinkedList {
             return;
         }
 
+		if (this.headNode.value === null) {
+			return
+		} else if (this.headNode.next === this.tailNode) {
+			if (index === 0) {
+				this.headNode = this.tailNode;
+			} else if (index === 1) {
+				this.tailNode = this.headNode;
+			}
+			
+			return
+		}
+
         let currentNode = this.headNode;
         let previousNode = this.headNode;
         for (let i = 0; i <= index; i++) {
@@ -211,6 +223,7 @@ class LinkedList {
                         this.headNode = new Node(null)
                     } else {
                         this.headNode = this.headNode.nextNode;
+						this.tailNode = this.headNode;
                     }
                 }
             } else {
@@ -224,11 +237,5 @@ class LinkedList {
         }
     }
 }
-
-const list = new LinkedList();
-list.append(['cheese', 'grater']);
-list.append(['sauce', 'pan']);
-list.append(['pudding', 'apple'])
-console.log(list.toEntries());
 
 export { LinkedList }

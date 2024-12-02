@@ -46,8 +46,11 @@ class HashMap {
 
         const listIndex = potentialList.find(key)
         if (listIndex >= 0) {
+            console.log(potentialList);
             potentialList.removeAt(listIndex);
+            console.log(potentialList);
             potentialList.insertAt(newEntry, listIndex);
+            console.log(potentialList);
         } else {
             potentialList.append(newEntry);
             this.numberOfElements++;
