@@ -22,7 +22,7 @@ console.log(test.entries());
 console.log(test.length());
 console.log(test.capacity);
 test.set('moon', 'full');
-test.set('banana', 'please fucking work');
+test.set('banana', 'please work');
 test.set('apple', 'red');
 test.set('hat', 'barbados');
 test.set('lion', 'simba');
@@ -37,3 +37,27 @@ test.set('carrot', 'stick');
 console.log(test.entries());
 console.log(test.length());
 console.log(test.capacity);
+console.log(test.get('carrot'))
+console.log(test.get('frog'));
+test.remove('frog');
+console.log(test.get('frog'))
+console.log(test.length());
+console.log(test.capacity);
+test.set('alister', 'done');
+test.set('walter', 'sleeping');
+console.log(test.entries());
+console.log(test.buckets);
+console.log(test.length());
+console.log(test.has('frog'));
+console.log(test.has('hat'));
+console.log(test.has('walter'));
+console.log(test.get('dog'));
+console.log(test.keys());
+console.log(test.values());
+test.clear();
+console.log(test.buckets);
+test.set('firsft', 'item')
+console.log(test);
+console.log(test.length());
+console.log(test.has('walter'));
+console.log(test.has('firsft'));

@@ -123,6 +123,9 @@ class HashMap {
         if (this.has(key)) {
             const keyIndex = this.buckets[bucketIndex].find(key);
             this.buckets[bucketIndex].removeAt(keyIndex);
+            if (this.buckets[bucketIndex].size() === 0) {
+                delete this.buckets[bucketIndex]
+            }
             this.numberOfElements--;
             boolean = true;
         }
