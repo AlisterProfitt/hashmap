@@ -6,99 +6,115 @@ class Node {
 }
 
 class LinkedList {
-	constructor() {
-		this.headNode = new Node();
-		this.tailNode = this.headNode;
-		this.length = 0;
-	}
+    constructor() {
+        this.headNode = null;
+        this.tailNode = null;
+        this.length = 0;
+    }
 
-	append(value) {
-		const newNode = new Node(value);
-		if (this.headNode.value === null) {
-			this.headNode = newNode;
-		} else {
-			this.tailNode.nextNode = newNode;
-		}
-		this.tailNode = newNode;
-		this.length++;
-	}
+    append(value) {
+        const newNode = new Node(value);
 
-	prepend(value) {
-		const newNode = new Node(value);
-		const previousHead = this.headNode;
-		this.headNode = newNode;
-		if (previousHead.value !== null) {
-			newNode.nextNode = previousHead;
-		} else {
-			this.tailNode = newNode;
-		}
-		this.length++;
-	}
+        if (this.headNode === null) {
+            this.headNode = newNode;
+            this.tailNode = newNode;
+        } else {
+            const oldTail = this.tailNode;
+            this.tailNode = newNode;
+            oldTail.nextNode = this.tailNode; 
+        }
 
-	size() {
-		return this.length;
-	}
+        this.length++;
+        return newNode;
+    }
 
-	head() {
-		return this.headNode;
-	}
+    prepend(value) {
+        const newNode = new Node(value);
+        
+        if (this.headNode === null) {
+            this.headNode = newNode;
+            this.tailNode = newNode;
+        } else {
+            const oldHead = this.headNode;
+            this.headNode = newNode;
+            this.headNode.nextNode = oldHead;
+        }
 
-	tail() {
-		return this.tailNode;
-	}
+        this.length++;
+        return newNode;
+    }
 
-	at(index) {
-		if (index > this.length || index < 0) return null;
-		let currentNode = this.headNode;
-		for (let i = 0; i <= index; i++) {
-			if (i === index) {
-				break;
-			} else {
-				currentNode = currentNode.nextNode;
-			}
-		}
+    size() {
+        return this.length;
+    }
 
-		return currentNode;
-	}
+    head() {
+        return this.headNode;
+    }
 
-	pop() {
-		if (this.headNode.value === null) return;
-		if (this.headNode.nextNode === this.tailNode) {
-			this.headNode.nextNode = null;
-			this.tailNode = this.headNode
-			this.length--;
-			return;
-		}
-		
-		let currentNode = this.headNode;
-		let previousNode = this.headNode;
-		for (let i = 0; i < this.length; i++) {
-				if (currentNode.nextNode !== null) {
-					previousNode = currentNode;
-					currentNode = currentNode.nextNode;
-				} else {
-					previousNode.nextNode = currentNode.nextNode;
-					this.tailNode = previousNode
-				}
-			}
-		this.length--;
-	}
+    tail() {
+        return this.tailNode;
+    }
 
-	contains(value) {
-		let currentNode = this.headNode;
-		let boolean = false;
-		for (let i = 0; i < this.length; i++) {
-			if (currentNode.value === value) {
-				boolean = true;
-				break;
-			} else {
-				currentNode = currentNode.nextNode;
-			}
-		}
-		return boolean;
-	}
+    at(index) {
+        if (index >= this.length || index < 0 || this.headNode === null) {
+            return null;
+        } else if (this.length === 1) {
+            return this.headNode;
+        }
 
-	find(key) {
+        let currentNode = this.headNode;
+        for (let i = 0; i <= index; i++) {
+            if (i === index) {
+                break;
+            } else {
+                currentNode = currentNode.nextNode;
+            }
+        }
+
+        return currentNode;
+    }
+
+    pop() {
+        if (this.headNode === null) {
+            return;
+        } else if (this.length === 1) {
+            this.headNode = null;
+            this.tailNode = null;
+        } else if (this.length === 2) {
+            this.headNode.nextNode = null;
+            this.tailNode = this.headNode;
+        } else {
+            let currentNode = this.headNode;
+            let previousNode = this.headNode;
+            for (let i = 0; i < this.length; i++) {
+                if (currentNode.nextNode !== null) {
+                    previousNode = currentNode;
+                    currentNode = currentNode.nextNode;
+                } else {
+                    previousNode.nextNode = null;
+                    this.tailNode = previousNode;
+                }
+            }
+        }
+        this.length--
+    }
+
+    contains(value) {
+        let currentNode = this.headNode;
+        let boolean = false;
+        for (let i = 0; i < this.length; i++) {
+            if (currentNode.value === value) {
+                boolean = true;
+                break;
+            } else {
+                currentNode = currentNode.nextNode;
+            }
+        }
+        return boolean;
+    }
+
+    find(key) {
 		let currentNode = this.headNode;
 		let container = -1;
 		for (let i = 0; i < this.length; i++) {
@@ -111,21 +127,92 @@ class LinkedList {
 		return container;
 	}
 
-	toString() {
-		if (this.length === 0) return 'null';
-		let currentNode = this.headNode;
-		let stringContainer = '';
-		for (let i = 0; i < this.length; i++) {
-			if (currentNode.nextNode === null) {
-				stringContainer += `( ${currentNode.value} ) -> null`
-			} else {
-				stringContainer += `( ${currentNode.value} ) -> `
-			}
-			currentNode = currentNode.nextNode;
-		}
+    toString() {
+        if (this.length === 0) {
+            return 'null';
+        }
+        let currentNode = this.headNode;
+        let stringContainer = '';
+        for (let i = 0; i < this.length; i++) {
+            if (currentNode.nextNode === null) {
+                stringContainer += `( ${currentNode.value} ) -> null`
+            } else {
+                stringContainer += `( ${currentNode.value} ) -> `
+            }
+            currentNode = currentNode.nextNode;
+        }
 
-		return stringContainer;
-	}
+        return stringContainer;
+    }
+
+    shift() {
+        if (this.headNode === null) {
+            return;
+        } else if (this.length === 1) {
+            this.headNode = null;
+            this.tailNode = null;
+        } else {
+            this.headNode = this.headNode.nextNode;
+        }
+        this.length--;
+    }
+
+    insertAt(value, index) {
+        if (index < 0 || index > this.length) {
+            console.log('Not a valid operation');
+            return;
+        }
+
+        if (index === 0) {
+            this.prepend(value);
+        } else if (index === this.length) {
+            this.append(value);
+        } else {
+            const newNode = new Node(value);
+            let currentNode = this.headNode;
+            let previousNode = this.headNode;
+            for (let i = 0; i <= index; i++) {
+                if (i === index) {
+                    console.log(previousNode);
+                    console.log(newNode);
+                    console.log(currentNode);
+                    previousNode.nextNode = newNode;
+                    newNode.nextNode = currentNode;
+                } else {
+                    previousNode = currentNode;
+                    currentNode = currentNode.nextNode;
+                }
+            }
+
+            this.length++;
+        }
+    }
+
+    removeAt(index) {
+        if (index < 0 || index >= this.length) {
+            console.log('Not a valid operation');
+            return;
+        }
+
+        if (index === 0) {
+            this.shift();
+        } else if (index === this.length - 1) {
+            this.pop();
+        } else {
+            let currentNode = this.headNode;
+            let previousNode = this.headNode;
+            for (let i = 0; i <= index; i++) {
+                if (i === index) {
+                    previousNode.nextNode = currentNode.nextNode;
+                } else {
+                    previousNode = currentNode;
+                    currentNode = currentNode.nextNode;
+                }
+            }
+
+            this.length--;
+        }
+    }
 
 	toKeys() {
 		if (this.length === 0) return 'null';
@@ -165,77 +252,6 @@ class LinkedList {
 
 		return entriesContainer;
 	}
-
-	insertAt(value, index) {
-        if (index < 0 || index > this.length) {
-            console.log('Not a valid operation');
-            return;
-        }
-
-        let currentNode = this.headNode;
-        let previousNode = this.headNode;
-        let newNode = new Node(value);
-        for (let i = 0; i <= index; i++) {
-            if (i === index) {
-                if (index !== 0) {
-                    previousNode.nextNode = newNode;
-                    newNode.nextNode = currentNode;
-                } else {
-					if (currentNode.value !== null) {
-						newNode.nextNode = currentNode;
-                    }
-					this.headNode = newNode;
-                }
-            } else {
-                previousNode = currentNode;
-                currentNode = currentNode.nextNode;
-            }
-        }
-        this.length++
-    }
-
-    removeAt(index) {
-        if (index < 0 || index > this.length) {
-            console.log('Not a valid operation');
-            return;
-        }
-
-		if (this.headNode.value === null) {
-			return
-		} else if (this.headNode.next === this.tailNode) {
-			if (index === 0) {
-				this.headNode = this.tailNode;
-			} else if (index === 1) {
-				this.tailNode = this.headNode;
-			}
-			
-			return
-		}
-
-        let currentNode = this.headNode;
-        let previousNode = this.headNode;
-        for (let i = 0; i <= index; i++) {
-            if (i === index) {
-                if (index !== 0) {
-                    previousNode.nextNode = currentNode.nextNode;
-                } else {
-                    if (currentNode.nextNode === null) {
-                        this.headNode = new Node(null)
-                    } else {
-                        this.headNode = this.headNode.nextNode;
-						this.tailNode = this.headNode;
-                    }
-                }
-            } else {
-                previousNode = currentNode;
-                currentNode = currentNode.nextNode;
-            }
-        }
-        
-        if (this.length !== 0) {
-            this.length--;
-        }
-    }
 }
 
 export { LinkedList }
