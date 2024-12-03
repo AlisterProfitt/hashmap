@@ -8,12 +8,35 @@ class HashMap {
         this.buckets = new Array(capacity);
     }
 
-    checkLoad() {
-        if ((this.numberOfElements / this.capacity) >= this.loadFactor) {
+    isOverLoad() {
+        if ((this.numberOfElements / this.capacity) > this.loadFactor) {
             return true;
         } else {
             return false;
         }
+    }
+
+    checkLoad() {
+        return this.numberOfElements / this.capacity
+    }
+
+    doubleCapacity() {
+        const oldBuckets = [...this.buckets];
+        this.capacity *= 2;
+        this.buckets = new Array(this.capacity);
+        this.reHash(oldBuckets);
+    }
+
+    reHash(array) {
+        this.numberOfElements = 0;
+        array.forEach((bucket) => {
+            if (bucket) {
+                const entries = bucket.toEntries();
+                entries.forEach((entry) => {
+                    this.set(entry[0], entry[1]);
+                })
+            }
+        })
     }
 
     hash(key) {
@@ -40,7 +63,9 @@ class HashMap {
             list.append(newEntry);
             this.buckets[bucketIndex] = list;
             this.numberOfElements++;
-            this.checkLoad();
+            if (this.isOverLoad()) {
+                this.doubleCapacity();
+            }
             return newEntry;
         }
 
@@ -51,8 +76,9 @@ class HashMap {
         } else {
             potentialList.append(newEntry);
             this.numberOfElements++;
-            // check if load > loadFactor. If it is, double buckets, presumably with the concat method
-            this.checkLoad();
+            if (this.isOverLoad()) {
+                this.doubleCapacity();
+            }
         }
         return newEntry
     }
